@@ -1,74 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaminari Store | Admin Mode</title>
-    <style>
-        :root { --primary: #ffcc00; --bg: #050505; --card: #111; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; text-align: center; }
-        
-        /* Estilo Baseado na Referência */
-        header { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 1px solid #222; background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%); }
-        .logo-text { font-size: 3.5rem; font-weight: 900; background: linear-gradient(to right, var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; letter-spacing: -2px; }
-        .tag { font-size: 0.7rem; background: #222; padding: 4px 10px; border-radius: 3px; color: var(--primary); text-transform: uppercase; margin-bottom: 10px; border: 1px solid #333; }
-        
-        .container { display: flex; flex-wrap: wrap; justify-content: center; padding: 40px 20px; }
-        .card { background: var(--card); border: 1px solid #222; border-radius: 4px; margin: 15px; width: 300px; transition: 0.4s; overflow: hidden; }
-        .card:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(255, 204, 0, 0.1); }
-        .card img { width: 100%; height: 200px; object-fit: cover; filter: brightness(0.8); }
-        .card-info { padding: 20px; text-align: left; }
-        .price { font-size: 28px; color: white; font-weight: bold; margin: 15px 0; }
-        .btn-buy { display: block; background: white; color: black; text-decoration: none; padding: 15px; text-align: center; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-        .btn-buy:hover { background: var(--primary); }
-
-        /* Painel de Admin */
-        footer { padding: 60px; color: #333; cursor: pointer; font-size: 12px; border-top: 1px solid #111; }
-        footer:hover { color: var(--primary); }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="tag">Volleyball Legends Premium</div>
-    <h1 class="logo-text" id="site-name">KAMINARI</h1>
-    <p id="site-desc" style="color: #888;">Contas exclusivas com entrega imediata.</p>
-</header>
-
-<div class="container">
+<div class="grid">
     <div class="card">
-        <img src="https://via.placeholder.com/400x300/111/fff?text=CONTA+TOP" alt="Conta">
-        <div class="card-info">
-            <span class="tag">Disponível</span>
-            <h3>Conta Lendária Nvl Max</h3>
-            <div class="price">R$ 80,00</div>
-            <a href="https://wa.me/SEUNUMERO" class="btn-buy">Comprar via WhatsApp</a>
-        </div>
+        <div class="card-icon">⚡</div>
+        <h3>Conta Elite</h3>
+        <p>Level Máximo + Itens Raros.</p>
+        <div class="price">R$ 90,00</div>
+        <button class="btn-action" onclick="finalizarCompra('Conta Elite', '90,00')">Adquirir</button>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">🔥</div>
+        <h3>Conta Starter</h3>
+        <p>Ideal para novos jogadores.</p>
+        <div class="price">R$ 35,00</div>
+        <button class="btn-action" onclick="finalizarCompra('Conta Starter', '35,00')">Adquirir</button>
     </div>
 </div>
 
-<footer onclick="abrirPainel()">
-    <p>© 2026 Kaminari Studio - Área do Proprietário</p>
-</footer>
-
 <script>
-    // A SENHA AGORA É "twins"
-    const SENHA_MESTRA = "twins";
+    const CHAVE_PIX = "c90dcbdd-b4a2-4865-b91d-829e467f199a";
+    const SEU_WHATSAPP = "47989151965"; // Coloque seu número com DDD aqui!
 
-    function abrirPainel() {
-        let pass = prompt("Digite a senha de administrador para editar:");
-        
-        if (pass === SENHA_MESTRA) {
-            alert("Acesso Concedido! Agora você pode editar os textos do site diretamente clicando neles.");
+    function finalizarCompra(produto, valor) {
+        // Copia a chave Pix automaticamente
+        navigator.clipboard.writeText(CHAVE_PIX).then(() => {
+            alert("Aqui está a chave Pix, finalize a compra!\n\nA chave Pix foi copiada para sua área de transferência.");
             
-            // Ativa o modo de edição em tempo real no navegador
-            document.body.contentEditable = 'true';
-            document.body.style.border = "2px solid #ffcc00";
-        } else if (pass !== null) {
-            alert("Senha incorreta!");
-        }
+            // Redireciona para o WhatsApp com mensagem pronta
+            const mensagem = encodeURIComponent(`Olá! Quero comprar a ${produto} por R$ ${valor}. Já copiei a chave Pix!`);
+            window.location.href = `https://wa.me/qr/GGSCLTXVI55PJ1?text=${mensagem}`;
+        });
     }
 </script>
-
-</body>
-</html>
